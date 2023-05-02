@@ -32,12 +32,12 @@ def alignImage(org, warp):
 		orgPts[i, :] = orgKey[match.queryIdx].pt
 		warpPts[i, :] = warpKey[match.trainIdx].pt
 
-		h, mask = cv2.findHomography(warpPts, orgPts, cv2.RANSAC)
+		h, mask = cv2.findHomography(warpPts, orgPts, 0)
+
+		print(h)
 
 		#warp the image and return the frame
-		height, width, channels = org.shape
-		print("homography: ", h)
-		print(width, height)
+		height, width = org_gray.shape
 		warp_reg = cv2.warpPerspective(warp, h, (width, height))
 
 	return warp_reg

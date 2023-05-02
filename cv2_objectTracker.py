@@ -1,8 +1,6 @@
 import cv2
-import sys
-import os
 import time
-from imageAlignment import *
+from imageAlignment import alignImage
 
 #open video source and convert reference images.
 s = 0
@@ -13,8 +11,7 @@ source.set(cv2.CAP_PROP_FRAME_WIDTH, source_width)
 source.set(cv2.CAP_PROP_FRAME_HEIGHT, source_height)
 
 #field reference for homography
-fieldRef = cv2.imread("fieldRef.jpg", cv2.IMREAD_COLOR)
-cv2.
+#fieldRef = cv2.imread("fieldRef.jpg", cv2.IMREAD_COLOR)
 
 trackerName = "CSRT TRACKER"
 
@@ -49,9 +46,10 @@ ok, frame = source.read()
 
 if not ok:
     print('cannot read the video')
+    exit()
 
 #Homography alignment.
-frame = alignImage(fieldRef, frame)
+#frame = alignImage(fieldRef, frame)
 
 #select bbox
 bbox = cv2.selectROI('Select', frame, False)
@@ -71,7 +69,8 @@ while cv2.waitKey(1) != 27:
 		break
 
 	source.retrieve(frame)
-	frame = alignImage(fieldRef, frame)
+	#currently broken image alignment
+	#frame = alignImage(fieldRef, frame)
 	
 	#timer
 	timer = cv2.getTickCount()
