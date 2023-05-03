@@ -1,0 +1,26 @@
+<annotation>
+	<folder>annotated</folder>
+	<filename>Sequence 011473.jpg</filename>
+	<path>C:\Users\black\Desktop\College etc\ME125\tfSourceCode\foosball\annotated\Sequence 011473.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1920</width>
+		<height>1080</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Foosball</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>1</difficult>
+		<bndbox>
+			<xmin>121</xmin>
+			<ymin>621</ymin>
+			<xmax>168</xmax>
+			<ymax>675</ymax>
+		</bndbox>
+	</object>
+</annotation>

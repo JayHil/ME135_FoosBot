@@ -1,5 +1,4 @@
 import cv2
-import sys
 import numpy as np
 
 #Takes in images org and warp and returns warp aligned to org. org and warp are assumed to be color images.
