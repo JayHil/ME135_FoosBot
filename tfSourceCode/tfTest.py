@@ -12,13 +12,13 @@ batch_size = 16 #16
 num_steps = 1500 #1500
 num_eval_steps = 1000
 
-train_record_path = 'C:/Users/black/Desktop/College etc/ME125/tfSourceCode/foosball/train.record'
-test_record_path = 'C:/Users/black/Desktop/College etc/ME125/tfSourceCode/foosball/validate.record'
-model_dir = 'C:/Users/black/Desktop/College etc/ME125/tfSourceCode/training'
-labelmap_path = 'C:/Users/black/Desktop/College etc/ME125/tfSourceCode/label_map.pbtxt'
+train_record_path = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/foosball/train.record'
+test_record_path = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/foosball/validate.record'
+model_dir = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/training'
+labelmap_path = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/label_map.pbtxt'
 
-pipeline_config_path = 'C:/Users/black/Desktop/College etc/ME125/tfSourceCode/mobilenet_v2.config'
-fine_tune_checkpoint = 'C:/Users/black/Desktop/College etc/ME125/tfSourceCode/mobilenet_v2/mobilenet_v2.ckpt-1'
+pipeline_config_path = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/mobilenet_v2.config'
+fine_tune_checkpoint = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/mobilenet_v2/mobilenet_v2.ckpt'
 
 print(tf.config.list_physical_devices('GPU'))
 
