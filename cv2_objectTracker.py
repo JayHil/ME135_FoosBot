@@ -59,6 +59,8 @@ if (bbox==None):
 	print('No region selected')
 	exit()
 
+print(bbox)
+
 #initialize tracker with first frame and bounding box.
 ok = tracker.init(frame, bbox)
 

@@ -2,9 +2,9 @@ import cv2
 import asyncio
 import queue
 import time
-import camera
+#import camera
 from objectDetector import *
-from objectDetector import *
+from objectTracker import *
 
 ###################################################################################
 # Misc constants
@@ -12,18 +12,9 @@ from objectDetector import *
 fieldwidth = 560
 mid2mid = 178
 delayms = 500
-
-###################################################################################
-# Load tensorflow inference graph
-###################################################################################
-
-modeldir = "C:/Users/black/Desktop/College_etc/ME125/foosbot/tfSourceCode/inferenceGraph/saved_model"
-labelmap_path = 'C:/Users/black/Desktop/College_etc/ME125/foosbot/tfSourceCode/label_map.pbtxt'
-configFile = "C:/Users/black/Desktop/College_etc/ME125/foosbot/tfSourceCode/mobilenet_v2.config"
-
-category_index = label_map_util.create_category_index_from_labelmap(labelmap_path, use_display_name=True)
-tf.keras.backend.clear_session()
-model = tf.saved_model.load(modeldir)
+source = None
+source_width = 1920
+source_height = 1080
 
 ###################################################################################
 # Functions
@@ -59,10 +50,10 @@ async def detect_and_track(q):
 		if not subque.empty():
 			mainMsg = subque.get()
 		if (detected == None or mainMsg == "r"):
-			detected = objectDetector.detectObject(subque, camera.capture)
-			tracker = objectTracker.initTracker(subque, detected)
+			detected = objectDetector.detectObject(subque, source.read())
+			tracker = objectTracker.initTracker(subque, source.read(), detected)
 		elif (detected != None and mainMsg == "t"):
-			detected = objectTracker.Track(subque, tracker, detected, camera.capture)
+			detected = objectTracker.Track(subque, tracker, detected, source.read())
 		
 		if (detected != None):
 			get_player_positions(detected)
@@ -71,23 +62,33 @@ async def detect_and_track(q):
 	if mainMsg == "s":
 		q.put("s")
 
-async def init():
-	#open camera
-	await camera.init()
+def init():
+	# #open camera
+	# await camera.init()
 
-	camera.framesize(10)
-	camera.contrast(2)
-	camera.speffect(2)
+	# camera.framesize(10)
+	# camera.contrast(2)
+	# camera.speffect(2)
 
-	#discard first few frames
-	asyncio.sleep_ms(200)
+	# #discard first few frames
+	# asyncio.sleep_ms(200)
+
+	#cv2 version
+	source = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+	time.sleep(1)
+	ok, frame = source.read()
+
+	if not ok:
+		print('cannot read the video')
+
+	source.set(cv2.CAP_PROP_FRAME_WIDTH, source_width)
+	source.set(cv2.CAP_PROP_FRAME_HEIGHT, source_height)
 
 ###################################################################################
 # Main Loop
 ###################################################################################
 
-#executes the main loop of the program, prints commands
-def main():
+async def main():
 	print('\r\nESP32 Ready to accept Commands\r\n')
 
 	q = queue.Queue()
@@ -96,7 +97,7 @@ def main():
 		#init
 		itn = init()
 		detector = detect_and_track(q)
-		asyncio.run(itn)
+		await detector
 		while(msg != "s"):
 			if not q.empty():
 				msg = q.get()
@@ -115,7 +116,7 @@ def main():
 					if (detector.iscoroutine()):
 						if (detector.done() or detector.cancelled()):
 							detector = detect_and_track(q)
-							asyncio.create_task(detector)
+
 				opponent_active ^= 1
 			elif indicatorChar =='V':
 				print("Vg:" + coord[0] + "m:" + coord[1] + "v:" + vel + " \r\n")
@@ -124,10 +125,8 @@ def main():
 					task.cancel()
 				exit()
 	except:
-		goalie_encoder_timer.deinit()
-		goalie_pid_timer.deinit()
 		pass
 
 if __name__ == "__main__":
-	main()
+	asyncio.run(main())
 	
