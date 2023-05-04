@@ -1,16 +1,31 @@
 import cv2
-import utime
 from imageAlignment import alignImage
+
+init = False
 
 ###################################################################################
 # Functions
 ###################################################################################
 
-def initTracker():
+def initTracker(q, bbox):
 	tracker = cv2.TrackerCSRT_create()
 
-	#bounding box from detection
-
+	#initialize tracker bounding box from detection
 	ok = tracker.init(frame, bbox)
 
-def Track():
+	if not ok:
+		q.put("s")
+
+	return tracker
+
+def Track(q, tracker, frame, bbox):
+	if not init:
+		q.put("s")
+		return
+
+	ok, bbox = tracker.update(frame)
+
+	if not ok:
+		q.put("r")
+		init = False
+		return None
