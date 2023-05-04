@@ -46,8 +46,10 @@ def get_player_positions(centroid):
 	coords = [[g_x,centroid[1]],[m_x,centroid[1]]]
 	return coords, velocity
 
-async def detect_and_track():
-	await uasycnio.sleep_ms(delay_ms)
+async def detect_and_track(q):
+	while(q != ""):
+		
+	await 
 
 async def init():
 	#open camera
