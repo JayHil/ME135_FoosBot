@@ -1,7 +1,6 @@
 import time
 import tensorflow as tf
 import tensorflow_datasets as tfds
-from imageAlignment import alignImage
 from inferenceutils import *
 
 # #image align NOT FUNCTIONAL

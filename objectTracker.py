@@ -1,5 +1,4 @@
 import cv2
-from imageAlignment import alignImage
 
 init = False
 
