@@ -13,14 +13,12 @@ objp[:,:2] = np.mgrid[0:9,0:6].T.reshape(-1,2)
 objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
 images = glob.glob('C:/Users/black/Desktop/*.jpg')
-undist = ""
 
 for fname in images:
     img = cv.imread(fname)
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     # Find the chess board corners
     ret, corners = cv.findChessboardCorners(gray, (9,6), None)
-    print(ret)
     # If found, add object points, image points (after refining them)
     if ret == True:
         undist = fname
@@ -29,16 +27,17 @@ for fname in images:
         imgpoints.append(corners2)
         # Draw and display the corners
         cv.drawChessboardCorners(img, (9,6), corners2, ret)
-        cv.imshow('img', img)
-        cv.waitKey(500)
         # Calibration
         ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
 cv.destroyAllWindows()
 
 # Undistortion
-img = cv.imread(fname)
-h,  w = img.shape[:2]
-newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 0, (w,h))
+img = cv.imread("C:/Users/black/Desktop/measurementField.jpg")
+h, w = img.shape[:2]
+print(img.shape)
+newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 0.7)
+print(roi)
+print(newcameramtx)
 
 # undistort
 #dst = cv.undistort(img, mtx, dist, None, newcameramtx)

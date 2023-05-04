@@ -18,7 +18,7 @@ model_dir = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/train
 labelmap_path = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/label_map.pbtxt'
 
 pipeline_config_path = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/mobilenet_v2.config'
-fine_tune_checkpoint = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/mobilenet_v2/mobilenet_v2.ckpt'
+fine_tune_checkpoint = 'C:/Users/black/Desktop/College etc/ME125/foosbot/tfSourceCode/mobilenet_v2/mobilenet_v2.ckpt-1'
 
 print(tf.config.list_physical_devices('GPU'))
 
