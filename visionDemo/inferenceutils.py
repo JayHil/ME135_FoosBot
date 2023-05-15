@@ -18,8 +18,6 @@ from object_detection.utils import ops as utils_ops
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
-
-
 def load_image_into_numpy_array(path):
   img_data = tf.io.gfile.GFile(path, 'rb').read()
   image = Image.open(BytesIO(img_data))
