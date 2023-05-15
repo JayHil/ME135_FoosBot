@@ -95,9 +95,8 @@ async def main():
 	msg = ""
 	try:
 		#init
-		itn = init()
-		detector = detect_and_track(q)
-		await detector
+		init()
+		detector = asyncio.create_task(detect_and_track(q))
 		while(msg != "s"):
 			if not q.empty():
 				msg = q.get()
@@ -115,7 +114,8 @@ async def main():
 						print("TOpponent Enabled \r\n")
 					if (detector.iscoroutine()):
 						if (detector.done() or detector.cancelled()):
-							detector = detect_and_track(q)
+							detector = asyncio.create_task(detect_and_track(q))
+							detector
 
 				opponent_active ^= 1
 			elif indicatorChar =='V':

@@ -6,7 +6,7 @@ init = False
 # Functions
 ###################################################################################
 
-def initTracker(q, bbox):
+def initTracker(q, frame, bbox):
 	tracker = cv2.TrackerCSRT_create()
 
 	#initialize tracker bounding box from detection

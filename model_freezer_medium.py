@@ -3,11 +3,11 @@ from tensorflow import keras
 from tensorflow.python.framework.convert_to_constants import convert_variables_to_constants_v2
 import numpy as np
 
-#path of the directory where you want to save your model
+#path of the directory for the frozen model
 frozen_out_path = "C:/Users/black/Desktop/College_etc/ME125/foosbot/tfSourceCode/freezingExp"
 # name of the .pb file
 frozen_graph_filename = "frozen_graph"
-#load in modelpython
+#load in saved model
 model_path = "C:/Users/black/Desktop/College_etc/ME125/foosbot/tfSourceCode/inferenceGraph/saved_model"
 model = tf.saved_model.load(model_path)
 print(model)
